@@ -116,15 +116,14 @@ void slider(GWindow gw) {
   data.saturation.setHue(data.hue.color_);
   data.saturation.setBrightness(data.brightness.color_);
   data.saturation.updateSlider();
-  plateColor3.addData(data);
-  colors(plateColor3); //set color    
+  colors(gw); //set color    
   data.getPApplet().fill(data.getColor());
   data.getPApplet().rect(400/2-255/2, 200, 150, 150);
 }
 
-void hexManual(GTextField source, GEvent event) {
+void hexManual(GTextField source, GEvent event,GWindow gw) {
   String rawText = source.getText();
-  DataGen dg = (DataGen)plateColor3.data;
+  DataGen dg = (DataGen)gw.data;
   if (event == GEvent.ENTERED &&  (!rawText.equals("")) && rawText.length() == 6) {
     int text = unhex(rawText);
     dg.hue.setPositionSlider(hue(text));

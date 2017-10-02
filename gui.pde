@@ -144,7 +144,7 @@ synchronized public void numColor1_mouse(PApplet appc, GWinData data, MouseEvent
 
 public void numColor1_change(GTextField source, GEvent event) { //_CODE_:numColor1_txt:537032:
   String rawText = source.getText();
-   hexManual(source,event);//set color with hex 
+   hexManual(source,event,numColor1);//set color with hex 
    numColor1_mouse(((DataGen)numColor1.data).getPApplet(),((DataGen)numColor1.data),((DataGen)numColor1.data).getMouseEvent());
   if(rawText.length() > 6 || rawText.length() < 6)
      colorNum1_warningLB.setText("must be equals 6");
@@ -170,7 +170,7 @@ synchronized public void numColor2_mouse(PApplet appc, GWinData data, MouseEvent
 
 public void numColor2_change(GTextField source, GEvent event) { //_CODE_:numColor2_txt:617321:
   String rawText = source.getText();
-   hexManual(source,event);//set color with hex 
+   hexManual(source,event,numColor2);//set color with hex 
    numColor2_mouse(((DataGen)numColor2.data).getPApplet(),((DataGen)numColor2.data),((DataGen)numColor2.data).getMouseEvent());
   if(rawText.length() > 6 || rawText.length() < 6)
      numColor2_warningLB.setText("must be equals 6");
@@ -196,7 +196,7 @@ synchronized public void numColor3_mouse(PApplet appc, GWinData data, MouseEvent
 
 public void numColor3_change(GTextField source, GEvent event) { //_CODE_:numColor3_txt:478325:
   String rawText = source.getText();
-   hexManual(source,event);//set color with hex 
+   hexManual(source,event,numColor3);//set color with hex 
    numColor3_mouse(((DataGen)numColor3.data).getPApplet(),((DataGen)numColor3.data),((DataGen)numColor3.data).getMouseEvent());
   if(rawText.length() > 6 || rawText.length() < 6)
      numColor3_warningLB.setText("must be equals 6");
@@ -222,7 +222,7 @@ synchronized public void plateColor1_mouse(PApplet appc, GWinData data, MouseEve
 
 public void plateColo1_change(GTextField source, GEvent event) { //_CODE_:plateColor1_txt:324405:
   String rawText = source.getText();
-  hexManual(source,event);//set color with hex 
+  hexManual(source,event,plateColor1);//set color with hex 
   plateColor1_mouse(((DataGen)plateColor1.data).getPApplet(),((DataGen)plateColor1.data),((DataGen)plateColor1.data).getMouseEvent());//update window by mouse event      
   if(rawText.length() > 6 || rawText.length() < 6)
      plateColor1_warningLB.setText("must be equals 6");
@@ -247,7 +247,7 @@ synchronized public void plateColor2_mouse(PApplet appc, GWinData data, MouseEve
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:textfield1:854692:
   String rawText = source.getText();
-  hexManual(source,event);//set color with hex 
+  hexManual(source,event,plateColor2);//set color with hex 
   plateColor2_mouse(((DataGen)plateColor2.data).getPApplet(),((DataGen)plateColor2.data),((DataGen)plateColor2.data).getMouseEvent());//update window by mouse event
   if(rawText.length() > 6 || rawText.length() < 6)
      plateColor2_warningLB.setText("must be equals 6");
@@ -272,7 +272,7 @@ synchronized public void plateColor3_mouse(PApplet appc, GWinData data, MouseEve
 
 public void textfield2_change1(GTextField source, GEvent event) { //_CODE_:textfield2:792601:
   String rawText = source.getText();
-  hexManual(source,event);//set color with hex 
+  hexManual(source,event,plateColor3);//set color with hex 
   plateColor3_mouse(((DataGen)plateColor3.data).getPApplet(),((DataGen)plateColor3.data),((DataGen)plateColor3.data).getMouseEvent());//update window by mouse event
   
   if(rawText.length() > 6 || rawText.length() < 6)
