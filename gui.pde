@@ -101,8 +101,16 @@ synchronized public void genPlate_mouse(PApplet appc, GWinData data, MouseEvent 
 
 } //_CODE_:genPlate_win:734553:
 
-public void button2_click1(GButton source, GEvent event) { //_CODE_:Reset:586008:
-  println("button2 - GButton >> GEvent." + event + " @ " + millis());
+public void reset_click(GButton source, GEvent event) { //_CODE_:Reset:586008:
+     
+    numColor_Box1.setColor(#ffffff);
+    numColor_Box2.setColor(#ffffff);
+    numColor_Box3.setColor(#ffffff);
+    plateColor_Box1.setColor(#ffffff);
+    plateColor_Box2.setColor(#ffffff);
+    plateColor_Box3.setColor(#ffffff);
+
+   
 } //_CODE_:Reset:586008:
 
 public void generate_btn_click(GButton source, GEvent event) { //_CODE_:generate_plate:827632:
@@ -281,7 +289,7 @@ public void textfield2_change1(GTextField source, GEvent event) { //_CODE_:textf
     plateColor3_warningLB.setText("");
 } //_CODE_:textfield2:792601:
 
-public void win_plate(PApplet appc, GWinData data) { //_CODE_:Plate:593044:
+synchronized public void win_plate(PApplet appc, GWinData data) { //_CODE_:Plate:593044:
   if(canDraw){
           canDraw = false;
           color[] cNum ={numColor_Box1.getColor(),numColor_Box2.getColor(),numColor_Box3.getColor()};
@@ -333,7 +341,7 @@ public void createGUI(){
   genPlate_win.addMouseHandler(this, "genPlate_mouse");
   Reset = new GButton(genPlate_win, 314, 327, 80, 30);
   Reset.setText("Reset");
-  Reset.addEventHandler(this, "button2_click1");
+  Reset.addEventHandler(this, "reset_click");
   Number = new GLabel(genPlate_win, 30, 23, 80, 20);
   Number.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   Number.setText("Number");

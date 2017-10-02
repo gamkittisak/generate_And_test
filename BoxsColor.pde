@@ -32,5 +32,6 @@
       public Boxs setHeight(int h){this.h=h; return this;}
       public void setColor(color c){this.c = c; changed=true;}
       public boolean isChange(){return changed;}
+      public void setChange(boolean changed){this.changed = changed;}
       
  }

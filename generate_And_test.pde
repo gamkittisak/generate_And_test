@@ -79,6 +79,7 @@ public void init() {
   plateColor1.setVisible(false);
   plateColor2.setVisible(false);
   plateColor3.setVisible(false);
+  Plate.setVisible(false);
 }
 
 public void setup() {
