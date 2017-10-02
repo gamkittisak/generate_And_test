@@ -1,11 +1,12 @@
 import java.nio.file.Paths;
+import java.util.*;
 class DataWinTest extends GWinData{
   private final PImage[] pimg;
   private final char name = 'd';
   private int incressing=0;
   private PApplet appc;
-  private final String directoryPath= "./Documents/generate and color blindness test/data/test";
-  
+  //private final String directoryPath= "./Documents/generate and color blindness test/data/test";
+  private final String directoryPath= "./generate_And_test.app/Contents/Java/data/test";
   DataWinTest(){
     pimg= new PImage[8];
     setImage();
@@ -24,10 +25,9 @@ class DataWinTest extends GWinData{
           }else{JOptionPane.showMessageDialog(frame,"Please check at :"+s+"/","Files not found",JOptionPane.ERROR_MESSAGE);
         }
         
-       
     }catch(NullPointerException e){
       JOptionPane.showMessageDialog(frame,e.getMessage());
-    }catch(Exception e2){
+    }catch(ConcurrentModificationException e2){
       JOptionPane.showMessageDialog(frame,e2.getMessage());
     }
   }
