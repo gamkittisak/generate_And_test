@@ -6,17 +6,17 @@ import javax.swing.*;
 private DataWinTest data_win_test ;
 private Boxs numColor_Box1, numColor_Box2, numColor_Box3, plateColor_Box1, plateColor_Box2, plateColor_Box3;
 private HashMap<RectColor, Boolean> switchColorDefault ;
-private  String directoryForKeepImg = "data/screen/Plate"; 
+protected  String directoryForKeepImg = "./Documents/generate and color blindness test/data/screen/";
 public final int boxNumColorX = 250, boxCircleColorX=480;
 public final int boxColorY1 = 65, boxColorY2=95, boxColorY3=125;
 public final int boxWidth = 20;
-public final int winColorW = 420,winColorH=400,winPlateW=600,winPlateH=600,winTestW=600,
-                 winTestH=700,winGenW=600,winGenH=500,winAboutW=240,winAboutH=200;
+protected final int winColorW = 420,winColorH=400,winPlateW=600,winPlateH=600,winTestW=600,
+                 winTestH=700,winGenW=600,winGenH=400,winAboutW=240,winAboutH=200;
 protected String selectedText_Number = "0";
-protected boolean canDraw = false;
+protected boolean canDraw = false;  // can draw plate ?
 protected color bgColor_Plate = #ffffff;
-protected boolean isSave =false;
-protected int countSave = 0;
+protected boolean isSave =false; // for check save image
+
 //naming of Set of Window
 enum RectColor {
   numColor1, numColor2, numColor3, plateColor1, plateColor2, plateColor3
@@ -167,4 +167,20 @@ boolean mouseClickEvent(int x1, int y1, int x2, int y2, MouseEvent event) {
     (event.getAction() == 3 || event.getAction() ==1 || event.getAction() ==4))
     res =true;
   return res;
+}
+
+protected void nextTest(){
+  if(data_win_test!=null){
+           data_win_test.incressing();
+           win_test(this,data_win_test);
+     }
+}
+protected void previousTest(){
+  if(data_win_test!=null){
+          if(data_win_test.getIncressing() >0 && data_win_test.getIncressing() !=-1){
+             data_win_test.setIncressing(data_win_test.getIncressing()-1);
+           }
+         if(data_win_test.getIncressing() ==0)
+           restart_btn_test.setVisible(false);
+         }
 }

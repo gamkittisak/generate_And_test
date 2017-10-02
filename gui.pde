@@ -38,14 +38,16 @@ synchronized public void win_test_mouse(PApplet appc, GWinData data, MouseEvent 
 } //_CODE_:test_win:386781:
 
 synchronized public void win_test_key(PApplet appc, GWinData data, KeyEvent kevent) { //_CODE_:test_win:368697:
-  println("test_win - key event " + millis());
+  if(kevent.getKeyCode() == 39 && kevent.getAction() == 2){
+       nextTest();
+  }
+   if(kevent.getKeyCode() ==37 && kevent.getAction() ==2){
+       previousTest(); 
+   }
 } //_CODE_:test_win:386781:
 
 public void next_btn_click(GButton source, GEvent event) { //_CODE_:next_btn:635315:
-    if(data_win_test!=null){
-     data_win_test.incressing();
-     win_test(this,data_win_test);
-  }
+   nextTest();
 } //_CODE_:next_btn:635315:
 
 public void restart_btn_click(GButton source, GEvent event) { //_CODE_:restart_btn_test:541928:
@@ -57,11 +59,7 @@ public void restart_btn_click(GButton source, GEvent event) { //_CODE_:restart_b
 } //_CODE_:restart_btn_test:541928:
 
 public void pre_btn_click(GButton source, GEvent event) { //_CODE_:pre_btn:385654:
-   if(data_win_test.getIncressing() >0 && data_win_test.getIncressing() !=-1){
-       data_win_test.setIncressing(data_win_test.getIncressing()-1);
-   }
-   if(data_win_test.getIncressing() ==0)
-     restart_btn_test.setVisible(false);
+   previousTest();
 } //_CODE_:pre_btn:385654:
 
 synchronized public void genPlate_draw(PApplet appc, GWinData data) { //_CODE_:genPlate_win:259886:
@@ -129,12 +127,11 @@ public void Number_list_click(GDropList source, GEvent event) { //_CODE_:setNumb
 } //_CODE_:setNumber:736706:
 
 synchronized public void about_draw(PApplet appc, GWinData data) { //_CODE_:about_win:343052:
-  
+  appc.background(255);
 } //_CODE_:about_win:343052:
 
 synchronized public void win_numColor1_draw(PApplet appc, GWinData data) { //_CODE_:numColor1:252003:
   
- 
   
 } //_CODE_:numColor1:252003:
 
@@ -223,10 +220,10 @@ synchronized public void plateColor1_mouse(PApplet appc, GWinData data, MouseEve
           {plateColor_Box1.setColor(((DataGen)plateColor1.data).getColor());}
     ((DataGen)plateColor1.data).setPApplet(appc).setMouseEvent(mevent);
     slider(plateColor1);
-    plateColor1_redLB.setText(red(((DataGen)plateColor2.data).getColor())+"");
-    plateColor1_greenLB.setText(green(((DataGen)plateColor2.data).getColor())+"");
-    plateColor1_blueLB.setText(blue(((DataGen)plateColor2.data).getColor())+"");
-    plateColor1_hexLB.setText(hex(((DataGen)plateColor2.data).getColor(),6));
+    plateColor1_redLB.setText(red(((DataGen)plateColor1.data).getColor())+"");
+    plateColor1_greenLB.setText(green(((DataGen)plateColor1.data).getColor())+"");
+    plateColor1_blueLB.setText(blue(((DataGen)plateColor1.data).getColor())+"");
+    plateColor1_hexLB.setText(hex(((DataGen)plateColor1.data).getColor(),6));
 } //_CODE_:plateColor1:699315:
 
 public void plateColo1_change(GTextField source, GEvent event) { //_CODE_:plateColor1_txt:324405:
@@ -307,10 +304,15 @@ synchronized public void win_plate(PApplet appc, GWinData data) { //_CODE_:Plate
 synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kevent) { //_CODE_:Plate:785237:
  if(isSave == false){
   if(kevent.getKeyCode() == 83 ){
-      ++countSave;
-       appc.save(directoryForKeepImg+countSave+".png");
-          JOptionPane.showMessageDialog(frame, "Save complated to :"+directoryForKeepImg);
-          isSave = true;
+        String filename= JOptionPane.showInputDialog("Save File");
+        if(!filename.equalsIgnoreCase("")){
+            String path= Paths.get(directoryForKeepImg).toAbsolutePath().normalize().toString();
+            appc.save(path+"/"+filename+".png");
+            JOptionPane.showMessageDialog(frame, "Save complated to :"+path);
+            isSave = true;
+        }else{
+          JOptionPane.showMessageDialog(frame, "please Input FileName :","warning",JOptionPane.WARNING_MESSAGE);
+        }
   }
  } 
  } //_CODE_:Plate:572166:
@@ -347,11 +349,11 @@ public void createGUI(){
   pre_btn = new GButton(test_win, 43, 650, 80, 30);
   pre_btn.setText("Previous");
   pre_btn.addEventHandler(this, "pre_btn_click");
-  genPlate_win = GWindow.getWindow(this, "Generate plate", 0, 0, 600, 500, JAVA2D);
+  genPlate_win = GWindow.getWindow(this, "Generate plate", 0, 0, 600, 400, JAVA2D);
   genPlate_win.noLoop();
   genPlate_win.addDrawHandler(this, "genPlate_draw");
   genPlate_win.addMouseHandler(this, "genPlate_mouse");
-  Reset = new GButton(genPlate_win, 314, 327, 80, 30);
+  Reset = new GButton(genPlate_win, 352, 277, 80, 30);
   Reset.setText("Reset");
   Reset.addEventHandler(this, "reset_click");
   Number = new GLabel(genPlate_win, 30, 23, 80, 20);
@@ -366,7 +368,7 @@ public void createGUI(){
   setcircle.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   setcircle.setText("Color set circle packing");
   setcircle.setOpaque(false);
-  generate_plate = new GButton(genPlate_win, 117, 331, 80, 30);
+  generate_plate = new GButton(genPlate_win, 149, 277, 80, 30);
   generate_plate.setText("Generate");
   generate_plate.addEventHandler(this, "generate_btn_click");
   setNumber = new GDropList(genPlate_win, 29, 65, 90, 200, 9);
@@ -375,18 +377,22 @@ public void createGUI(){
   about_win = GWindow.getWindow(this, "About", 0, 0, 240, 200, JAVA2D);
   about_win.noLoop();
   about_win.addDrawHandler(this, "about_draw");
-  label1 = new GLabel(about_win, 64, 92, 80, 20);
+  label1 = new GLabel(about_win, 50, 131, 140, 20);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label1.setText("@2017");
+  label1.setText("gamkittisak@gmail.com");
   label1.setOpaque(false);
-  label2 = new GLabel(about_win, 22, 23, 166, 23);
+  label2 = new GLabel(about_win, 70, 23, 100, 23);
   label2.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label2.setText(" Develop By");
   label2.setOpaque(false);
-  label3 = new GLabel(about_win, 35, 60, 144, 20);
+  label3 = new GLabel(about_win, 48, 59, 144, 20);
   label3.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label3.setText("Kittisak Pemsiriudomroek");
   label3.setOpaque(false);
+  label26 = new GLabel(about_win, 80, 90, 80, 20);
+  label26.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label26.setText("Contract me");
+  label26.setOpaque(false);
   numColor1 = GWindow.getWindow(this, "color1", 0, 0, 400, 420, JAVA2D);
   numColor1.noLoop();
   numColor1.addDrawHandler(this, "win_numColor1_draw");
@@ -736,6 +742,7 @@ GWindow about_win;
 GLabel label1; 
 GLabel label2; 
 GLabel label3; 
+GLabel label26; 
 GWindow numColor1;
 GLabel redColor1; 
 GLabel greenColor1; 
