@@ -118,6 +118,7 @@ public void generate_btn_click(GButton source, GEvent event) { //_CODE_:generate
    if(numColor_Box1.isChange() && numColor_Box2.isChange() && numColor_Box3.isChange() && plateColor_Box1.isChange()
    && plateColor_Box2.isChange() && plateColor_Box3.isChange() && !selectedText_Number.equals(null)){
        canDraw = true;
+       isSave=false;
        Plate.setVisible(true);
    }
        
@@ -302,6 +303,17 @@ synchronized public void win_plate(PApplet appc, GWinData data) { //_CODE_:Plate
 
   }
 } //_CODE_:Plate:593044:
+
+synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kevent) { //_CODE_:Plate:785237:
+ if(isSave == false){
+  if(kevent.getKeyCode() == 83 ){
+      ++countSave;
+       appc.save(directoryForKeepImg+countSave+".png");
+          JOptionPane.showMessageDialog(frame, "Save complated to :"+directoryForKeepImg);
+          isSave = true;
+  }
+ } 
+ } //_CODE_:Plate:572166:
 
 
 
@@ -691,6 +703,7 @@ public void createGUI(){
   Plate = GWindow.getWindow(this, "Plate", 0, 0, 600, 600, JAVA2D);
   Plate.noLoop();
   Plate.addDrawHandler(this, "win_plate");
+  Plate.addKeyHandler(this, "savePlate_key");
   test_win.loop();
   genPlate_win.loop();
   about_win.loop();

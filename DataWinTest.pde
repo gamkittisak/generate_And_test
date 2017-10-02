@@ -9,9 +9,11 @@ class DataWinTest extends GWinData{
   }
   
   private void setImage(){
+    
     for(int i=0;i<pimg.length;i++){
-       pimg[i] = loadImage("data/image/"+name+(i+1)+".png");
+       pimg[i] = loadImage("data/test/"+name+(i+1)+".png");
     }
+    
   }
   
   public void incressing(){if(incressing!=7)incressing++;}

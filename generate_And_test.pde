@@ -2,10 +2,11 @@
 import g4p_controls.*;
 import java.awt.Font;
 import java.awt.*;
-
+import javax.swing.*;
 private DataWinTest data_win_test ;
 private Boxs numColor_Box1, numColor_Box2, numColor_Box3, plateColor_Box1, plateColor_Box2, plateColor_Box3;
 private HashMap<RectColor, Boolean> switchColorDefault ;
+private  String directoryForKeepImg = "data/screen/Plate"; 
 public final int boxNumColorX = 250, boxCircleColorX=480;
 public final int boxColorY1 = 65, boxColorY2=95, boxColorY3=125;
 public final int boxWidth = 20;
@@ -14,7 +15,8 @@ public final int winColorW = 420,winColorH=400,winPlateW=600,winPlateH=600,winTe
 protected String selectedText_Number = "0";
 protected boolean canDraw = false;
 protected color bgColor_Plate = #ffffff;
-
+protected boolean isSave =false;
+protected int countSave = 0;
 //naming of Set of Window
 enum RectColor {
   numColor1, numColor2, numColor3, plateColor1, plateColor2, plateColor3
