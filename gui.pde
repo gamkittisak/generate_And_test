@@ -308,7 +308,7 @@ synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kev
         if(!filename.equalsIgnoreCase("")){
             //String path= Paths.get(directoryForKeepImg).toAbsolutePath().normalize().toString();
             appc.save("./screen/"+filename+".png");
-            JOptionPane.showMessageDialog(frame, "Save complated to :"+"./data/screen/"+filename);
+            JOptionPane.showMessageDialog(frame, "Save complated to :"+"./screen/"+filename);
             isSave = true;
         }else{
           JOptionPane.showMessageDialog(frame, "please Input FileName :","warning",JOptionPane.WARNING_MESSAGE);
