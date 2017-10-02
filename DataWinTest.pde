@@ -15,22 +15,12 @@ class DataWinTest extends GWinData{
   private void setImage(){
     
     try{
-          /*
-         String s= Paths.get(directoryPath).toAbsolutePath().normalize().toString();
-         File file = new File(s+"/d1.png"); 
-         if(file.exists()){
-            for(int i=0;i<pimg.length;i++){
-               pimg[i] = loadImage(s+"/"+name+(i+1)+".png");
-            }
-          }else{JOptionPane.showMessageDialog(frame,"Please check at :"+s+"/","Files not found",JOptionPane.ERROR_MESSAGE);
-        }
-        */
-        
+ 
             PImage s =loadImage("./data/test/"+name+(1)+".png");
             if(s !=null)
                 for(int i=0;i<pimg.length;i++){
-               pimg[i] = loadImage("./data/test/"+name+(i+1)+".png");
-              }
+                   pimg[i] = loadImage("./data/test/"+name+(i+1)+".png");
+                 }
             else
               JOptionPane.showMessageDialog(frame,"Please check filename "+name+" : /data/test/","Files not found",JOptionPane.ERROR_MESSAGE);
 
