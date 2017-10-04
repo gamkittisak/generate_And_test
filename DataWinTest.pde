@@ -1,5 +1,3 @@
-import java.nio.file.Paths;
-import java.util.*;
 class DataWinTest extends GWinData{
   private final PImage[] pimg;
   private final String name = "plate";

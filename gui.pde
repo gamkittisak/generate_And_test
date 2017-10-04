@@ -116,7 +116,6 @@ public void generate_btn_click(GButton source, GEvent event) { //_CODE_:generate
    if(numColor_Box1.isChange() && numColor_Box2.isChange() && numColor_Box3.isChange() && plateColor_Box1.isChange()
    && plateColor_Box2.isChange() && plateColor_Box3.isChange() && !selectedText_Number.equals(null)){
        canDraw = true;
-       isSave=false;
        Plate.setVisible(true);
    }
        
@@ -302,19 +301,37 @@ synchronized public void win_plate(PApplet appc, GWinData data) { //_CODE_:Plate
 } //_CODE_:Plate:593044:
 
 synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kevent) { //_CODE_:Plate:785237:
- if(isSave == false){
-  if(kevent.getKeyCode() == 83 ){
-        String filename= JOptionPane.showInputDialog("Save File");
-        if(!filename.equalsIgnoreCase("")){
-            //String path= Paths.get(directoryForKeepImg).toAbsolutePath().normalize().toString();
-            appc.save("./screen/"+filename+".png");
-            JOptionPane.showMessageDialog(frame, "Save complated to :"+"./screen/"+filename);
-            isSave = true;
-        }else{
-          JOptionPane.showMessageDialog(frame, "please Input FileName :","warning",JOptionPane.WARNING_MESSAGE);
+     
+  if(kevent.getKeyCode() == 83 && kevent.getAction() == 2){
+        try{
+          String fileName = JOptionPane.showInputDialog("Save File :");
+          Path destinationPath = Paths.get(System.getProperty("user.home"));
+          File destinationFile = new File(destinationPath.toAbsolutePath()+"/"+directoryForKeepImg+"/"+fileName+".png");
+          if(fileName.equalsIgnoreCase("")){
+             JOptionPane.showMessageDialog(frame,"Plase Input FileName !!");
+             savePlate_key(appc,data,kevent);
+             return;
+           }
+           //file exists 
+          if(destinationFile.exists()){
+            int a = (int)JOptionPane.showConfirmDialog(frame,"File is same exists. Do you wanna save ?","Save As",JOptionPane.YES_NO_OPTION);
+            if(a == 0){
+                appc.save(destinationFile.getParent()+"/"+fileName+".png");
+                JOptionPane.showMessageDialog(frame,destinationFile.getAbsolutePath());  
+                return;
+            }
+            else
+              return;
+          }
+          //default file dosen't exists
+          appc.save(destinationFile.getParent()+"/"+fileName+".png");   
+          JOptionPane.showMessageDialog(frame,destinationFile.getAbsolutePath());  
+      }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(frame,e.getMessage());
         }
   }
- } 
+ 
  } //_CODE_:Plate:572166:
 
 
