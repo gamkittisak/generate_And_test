@@ -9,6 +9,7 @@ private DataWinTest data_win_test ;
 private Boxs numColor_Box1, numColor_Box2, numColor_Box3, plateColor_Box1, plateColor_Box2, plateColor_Box3;
 private HashMap<RectColor, Boolean> switchColorDefault ;
 private  String directoryForKeepImg = "/Documents/generate and color blindness test/data/screen/";
+private final color defaultColorOfSliderWhileInit = #ff0000;
 public final int boxNumColorX = 250, boxCircleColorX=480;
 public final int boxColorY1 = 65, boxColorY2=95, boxColorY3=125;
 public final int boxWidth = 20;
@@ -36,34 +37,34 @@ public void init() {
 
   // here it's set object color sliders on each other windows
   numColor1.addData(
-    new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
+    (new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
     .setInstanceSaturation((Saturation)(new ColorSliders().getColorSlider("Saturation", HSB, 400/2-255/2, 100, 255, 30)))
-    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))));
-
+    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30)))).setDefaultSlider(defaultColorOfSliderWhileInit));
+ 
   numColor2.addData(
-    new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
+    (new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
     .setInstanceSaturation((Saturation)(new ColorSliders().getColorSlider("Saturation", HSB, 400/2-255/2, 100, 255, 30)))
-    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))));
+    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30)))).setDefaultSlider(defaultColorOfSliderWhileInit));
 
   numColor3.addData(
     new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
     .setInstanceSaturation((Saturation)(new ColorSliders().getColorSlider("Saturation", HSB, 400/2-255/2, 100, 255, 30)))
-    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))));
+    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))).setDefaultSlider(defaultColorOfSliderWhileInit));
 
   plateColor1.addData(
     new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
     .setInstanceSaturation((Saturation)(new ColorSliders().getColorSlider("Saturation", HSB, 400/2-255/2, 100, 255, 30)))
-    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))));
+    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))).setDefaultSlider(defaultColorOfSliderWhileInit));
 
   plateColor2.addData(
     new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
     .setInstanceSaturation((Saturation)(new ColorSliders().getColorSlider("Saturation", HSB, 400/2-255/2, 100, 255, 30)))
-    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))));
+    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))).setDefaultSlider(defaultColorOfSliderWhileInit));
 
   plateColor3.addData(
     new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
     .setInstanceSaturation((Saturation)(new ColorSliders().getColorSlider("Saturation", HSB, 400/2-255/2, 100, 255, 30)))
-    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))));
+    .setInstanceBrightNess((BrightNess)(new ColorSliders().getColorSlider("BrightNess", GRAY, 400/2-255/2, 150, 255, 30))).setDefaultSlider(defaultColorOfSliderWhileInit));
   
       PApplet appc = (PApplet)genPlate_win;
     numColor_Box1 = new Boxs(appc, boxNumColorX, boxColorY1, boxWidth, boxWidth).create();

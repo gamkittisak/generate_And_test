@@ -308,16 +308,16 @@ synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kev
           Path destinationPath = Paths.get(System.getProperty("user.home"));
           File destinationFile = new File(destinationPath.toAbsolutePath()+"/"+directoryForKeepImg+"/"+fileName+".png");
           if(fileName.equalsIgnoreCase("")){
-             JOptionPane.showMessageDialog(frame,"Plase Input FileName !!");
+             JOptionPane.showMessageDialog(frame,"Plase Input FileName !!","Warning!",JOptionPane.WARNING_MESSAGE);
              savePlate_key(appc,data,kevent);
              return;
            }
            //file exists 
           if(destinationFile.exists()){
-            int a = (int)JOptionPane.showConfirmDialog(frame,"File is same exists. Do you wanna save ?","Save As",JOptionPane.YES_NO_OPTION);
+            int a = (int)JOptionPane.showConfirmDialog(frame,"FileName is already exists!! \n Do you wanna save ?","Save",JOptionPane.YES_NO_OPTION);
             if(a == 0){
                 appc.save(destinationFile.getParent()+"/"+fileName+".png");
-                JOptionPane.showMessageDialog(frame,destinationFile.getAbsolutePath());  
+                JOptionPane.showMessageDialog(frame,"Save to "+destinationFile.getAbsolutePath(),"Successing!",JOptionPane.PLAIN_MESSAGE);  
                 return;
             }
             else
@@ -325,7 +325,7 @@ synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kev
           }
           //default file dosen't exists
           appc.save(destinationFile.getParent()+"/"+fileName+".png");   
-          JOptionPane.showMessageDialog(frame,destinationFile.getAbsolutePath());  
+          JOptionPane.showMessageDialog(frame,"Save to "+destinationFile.getAbsolutePath(),"Successing!",JOptionPane.PLAIN_MESSAGE);  
       }
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(frame,e.getMessage());

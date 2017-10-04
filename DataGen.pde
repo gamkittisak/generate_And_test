@@ -18,6 +18,15 @@ class DataGen extends GWinData {
      this.c = c;
     
   }
+  public DataGen setDefaultSlider(color c){
+     hue.setPositionSlider(hue(c));
+    hue.setColor(hue(c));
+    saturation.setPositionSlider(saturation(c));
+    saturation.setColor(saturation(c));
+    brightness.setColor(brightness(c));
+    brightness.setPositionSlider(brightness(c));
+    return this;
+  }
 
   public color getBackground() {
     return color(red, green, blue);
