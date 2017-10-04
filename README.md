@@ -1,7 +1,7 @@
-# generate_And_test
-for MacOS
-create folder "generate and color blindness test" into Documents  
-after than move folder "data"  into "generate and color blindness"
+
+
+move "generate and color blindness test" into Documents  
+
 
 How can run this project?
 1. install Processing 3.5.6 you can get at www.processing.org
@@ -10,4 +10,4 @@ How can run this project?
 
 can download my Full Software
 
-https://drive.google.com/open?id=0B4VFbzOyRgqnZWJQQ0J4S1VKbVk
+https://drive.google.com/open?id=0B4VFbzOyRgqnVXJhdWFqVU1BY28
