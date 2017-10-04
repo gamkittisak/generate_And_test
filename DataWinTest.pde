@@ -2,32 +2,32 @@ import java.nio.file.Paths;
 import java.util.*;
 class DataWinTest extends GWinData{
   private final PImage[] pimg;
-  private final char name = 'd';
+  private final String name = "plate";
   private int incressing=0;
   private PApplet appc;
-  //private final String directoryPath= "./Documents/generate and color blindness test/data/test";
-  private final String directoryPath= "./generate_And_test.app/Contents/Java/data/test";
+  private final String directoryPath= "/Documents/generate and color blindness test/data/test/";
   DataWinTest(){
     pimg= new PImage[8];
     setImage();
   }
   
   private void setImage(){
-    
-    try{
- 
-            PImage s =loadImage("./data/test/"+name+(1)+".png");
-            if(s !=null)
-                for(int i=0;i<pimg.length;i++){
-                   pimg[i] = loadImage("./data/test/"+name+(i+1)+".png");
-                 }
-            else
-              JOptionPane.showMessageDialog(frame,"Please check filename "+name+" : /data/test/","Files not found",JOptionPane.ERROR_MESSAGE);
-
+       try{
         
+       Path destinationPath = Paths.get(System.getProperty("user.home"));
+       File destinationFile = new File(destinationPath.toAbsolutePath()+directoryPath+name+"1.png");
+       
+       if(destinationFile.exists() && !destinationFile.isDirectory()){
+          for(int i=0;i<pimg.length;i++){
+                   pimg[i] = loadImage(destinationFile.getParent()+"/"+name+(i+1)+".png");
+                }
+       }
+       else
+          JOptionPane.showMessageDialog(frame,destinationFile.getAbsolutePath(),"file not found :",JOptionPane.ERROR_MESSAGE);
+           
     }catch(NullPointerException e){
       JOptionPane.showMessageDialog(frame,e.getMessage());
-    }catch(ConcurrentModificationException e2){
+    }catch(Exception e2){
       JOptionPane.showMessageDialog(frame,e2.getMessage());
     }
   }
