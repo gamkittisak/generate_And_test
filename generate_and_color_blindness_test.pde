@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 private DataWinTest data_win_test ;
 private Boxs numColor_Box1, numColor_Box2, numColor_Box3, plateColor_Box1, plateColor_Box2, plateColor_Box3;
 private HashMap<RectColor, Boolean> switchColorDefault ;
@@ -18,8 +19,8 @@ protected final int winColorW = 420,winColorH=400,winPlateW=600,winPlateH=600,wi
 protected String selectedText_Number = "0";
 protected boolean canDraw = false;  // can draw plate ?
 protected color bgColor_Plate = #ffffff;
-
-
+protected int keyCodeOfTypePlate =0;
+protected int stateKeyCodeOfTypePlate=0;
 //naming of Set of Window
 enum RectColor {
   numColor1, numColor2, numColor3, plateColor1, plateColor2, plateColor3
@@ -28,13 +29,14 @@ enum RectColor {
 //init program
 public void init() {
   data_win_test = new DataWinTest();
+  test_win.addData(data_win_test);
   switchColorDefault = new HashMap<RectColor, Boolean>();
 
   //here it's set boolean for switching color when event from mouse click
   for (RectColor n : RectColor.values()) {
     switchColorDefault.put(n, false);
   }
-
+  
   // here it's set object color sliders on each other windows
   numColor1.addData(
     (new DataGen().setInstanceHue((Hue)(new ColorSliders().getColorSlider("Hue", HSB, 400/2 - 255/2, 50, 255, 30)))
@@ -107,8 +109,6 @@ public void customGUI() {
   about_win.setVisible(false);
 
 
-  //button
-  restart_btn_test.setVisible(false);
 }
 
 void slider(GWindow gw) {
@@ -173,17 +173,83 @@ boolean mouseClickEvent(int x1, int y1, int x2, int y2, MouseEvent event) {
 }
 
 protected void nextTest(){
-  if(data_win_test!=null){
-           data_win_test.incressing();
-           win_test(this,data_win_test);
-     }
+ 
 }
 protected void previousTest(){
-  if(data_win_test!=null){
-          if(data_win_test.getIncressing() >0 && data_win_test.getIncressing() !=-1){
-             data_win_test.setIncressing(data_win_test.getIncressing()-1);
+  
+}
+
+protected void selectDraw(PApplet appc, DataWinTest dwt,KeyEvent  kevent,int getAction,color[] cNum, color[] cCircles){
+   
+  if(getAction == 0x30 && kevent.getAction() == 2 || (kevent.getKeyCode() == 96 && kevent.getAction()==2)){
+         drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.zero);
+   }
+   if(getAction ==0x31 && kevent.getAction() ==2 || (kevent.getKeyCode() == 97 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.one);
+   }
+   if(getAction ==0x32 && kevent.getAction() ==2 || (kevent.getKeyCode() == 98 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.two);
+   }
+   if(getAction ==0x33 && kevent.getAction() ==2 || (kevent.getKeyCode() == 99 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.three);
+   }
+   if(getAction ==0x34 && kevent.getAction() ==2 || (kevent.getKeyCode() == 100 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.four);
+   }
+   if(getAction ==0x35 && kevent.getAction() ==2 || (kevent.getKeyCode() == 101 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.five);
+   }
+   if(getAction ==0x36 && kevent.getAction() ==2 || (kevent.getKeyCode() == 102 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.six);
+   }
+   if(getAction ==0x37 && kevent.getAction() ==2 || (kevent.getKeyCode() == 103 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.seven);
+   }
+   if(getAction ==0x38 && kevent.getAction() ==2 || (kevent.getKeyCode() == 104 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.eight);
+   }
+   if(getAction ==0x39 && kevent.getAction() ==2 || (kevent.getKeyCode() == 105 && kevent.getAction()==2)){
+      drawPlate(appc,dwt,kevent,getAction,cNum,cCircles,dwt.nine);
+   }
+}
+
+private void drawPlate(PApplet appc, DataWinTest dwt,KeyEvent  kevent,int getAction,color[] cNum, color[] cCircles,String number){
+   Plates p = new Plates(winTestW,cCircles,dwt.bgColor_Plate,appc,winTestW,winTestW);
+   DrawNumber dn = new DrawNumber(appc,number,cNum, (winTestW/2)-50, (winTestW/2)-60 );
+   p.figureOut();
+   appc.scale(0.8);
+   dn.figureOut();
+  
+}
+
+public void saveImg(PApplet appc){
+   
+        try{
+          String fileName = JOptionPane.showInputDialog("Save File :");
+          Path destinationPath = Paths.get(System.getProperty("user.home"));
+          File destinationFile = new File(destinationPath.toAbsolutePath()+"/"+directoryForKeepImg+"/"+fileName+".png");
+          if(fileName.equalsIgnoreCase("")){
+             JOptionPane.showMessageDialog(frame,"Plase Input FileName !!","Warning!",JOptionPane.WARNING_MESSAGE);
+             saveImg(appc);
+             return;
            }
-         if(data_win_test.getIncressing() ==0)
-           restart_btn_test.setVisible(false);
-         }
+           //file exists 
+          if(destinationFile.exists()){
+            int a = (int)JOptionPane.showConfirmDialog(frame,"FileName is already exists!! \n Do you wanna save ?","Save",JOptionPane.YES_NO_OPTION);
+            if(a == 0){
+                appc.save(destinationFile.getParent()+"/"+fileName+".png");
+                JOptionPane.showMessageDialog(frame,"Save to "+destinationFile.getAbsolutePath(),"Successing!",JOptionPane.PLAIN_MESSAGE);  
+                return;
+            }
+            else
+              return;
+          }
+          //default file dosen't exists
+          appc.save(destinationFile.getParent()+"/"+fileName+".png");   
+          JOptionPane.showMessageDialog(frame,"Save to "+destinationFile.getAbsolutePath(),"Successing!",JOptionPane.PLAIN_MESSAGE);  
+      }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(frame,e.getMessage());
+        }
+  
 }

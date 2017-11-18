@@ -27,40 +27,62 @@ public void btn_about_click(GButton source, GEvent event) { //_CODE_:about_btn:6
 } //_CODE_:about_btn:656178:
 
 synchronized public void win_test(PApplet appc, GWinData data) { //_CODE_:test_win:774056:
-  appc.background(230);
-  // set visible 
-  if(data_win_test.getIncressing() >0)
-       restart_btn_test.setVisible(true);
-  appc.image(data_win_test.getPimg(),0,0);
+  
 } //_CODE_:test_win:774056:
 
 synchronized public void win_test_mouse(PApplet appc, GWinData data, MouseEvent mevent) { //_CODE_:test_win:386781:
+ 
+
 } //_CODE_:test_win:386781:
 
 synchronized public void win_test_key(PApplet appc, GWinData data, KeyEvent kevent) { //_CODE_:test_win:368697:
-  if(kevent.getKeyCode() == 39 && kevent.getAction() == 2){
-       nextTest();
-  }
-   if(kevent.getKeyCode() ==37 && kevent.getAction() ==2){
-       previousTest(); 
-   }
-} //_CODE_:test_win:386781:
-
-public void next_btn_click(GButton source, GEvent event) { //_CODE_:next_btn:635315:
-   nextTest();
-} //_CODE_:next_btn:635315:
-
-public void restart_btn_click(GButton source, GEvent event) { //_CODE_:restart_btn_test:541928:
-  if(data_win_test.getIncressing() >=1){
-     data_win_test.setIncressing(0);
-    restart_btn_test.setVisible(false);
+  DataWinTest dwt = (DataWinTest)data;
+ if(kevent.getKeyCode() == 68 && kevent.getAction() == 2){
+   keyCodeOfTypePlate = 68;
+   stateKeyCodeOfTypePlate+=1; //0 -> 1 -> 2 ->0
+   if(stateKeyCodeOfTypePlate == dwt.stateIndexOfDeu || stateKeyCodeOfTypePlate >dwt.stateIndexOfTri)  //when stateKey equals length of plate 
+     stateKeyCodeOfTypePlate=0;
+ }
+  if(kevent.getKeyCode() == 80 && kevent.getAction() == 2){
+   keyCodeOfTypePlate = 80;
+   stateKeyCodeOfTypePlate+=1; //0 -> 1 -> 2 ->0
+   if(stateKeyCodeOfTypePlate == dwt.stateIndexOfPro || stateKeyCodeOfTypePlate >dwt.stateIndexOfTri)
+     stateKeyCodeOfTypePlate=0;
+ }
+  if(kevent.getKeyCode() == 84 && kevent.getAction() == 2){
+   keyCodeOfTypePlate = 84;
+   stateKeyCodeOfTypePlate+=1; //0 -> 1 -> 2 ->0
+   
+   if(stateKeyCodeOfTypePlate == dwt.stateIndexOfTri 
+      || stateKeyCodeOfTypePlate >dwt.stateIndexOfTri) //if stateKey is over this condition stateKey become to 0
+     stateKeyCodeOfTypePlate=0;
+ }
+ 
+ //Deuteranopia
+  if( 68 == keyCodeOfTypePlate){
+      color[] cNum =dwt.getColorNumber("deuteranopia",stateKeyCodeOfTypePlate);
+      color[] cCircles =dwt.getColorCircles("deuteranopia",stateKeyCodeOfTypePlate);
+      selectDraw(appc,dwt,kevent,kevent.getKeyCode(),cNum,cCircles);
   }
  
-} //_CODE_:restart_btn_test:541928:
-
-public void pre_btn_click(GButton source, GEvent event) { //_CODE_:pre_btn:385654:
-   previousTest();
-} //_CODE_:pre_btn:385654:
+  //protanopia
+  if(80 == keyCodeOfTypePlate){
+    color[] cNum = dwt.getColorNumber("protanopia",stateKeyCodeOfTypePlate);
+    color[] cCircles = dwt.getColorCircles("protanopia",stateKeyCodeOfTypePlate);
+    selectDraw(appc,dwt,kevent,kevent.getKeyCode(),cNum,cCircles);
+  }
+  
+  //Tritanopia
+  if(84 == keyCodeOfTypePlate){
+    color[] cNum = dwt.getColorNumber("tritanopia",stateKeyCodeOfTypePlate);
+    color[] cCircles = dwt.getColorCircles("tritanopia",stateKeyCodeOfTypePlate);
+    selectDraw(appc,dwt,kevent,kevent.getKeyCode(),cNum,cCircles);
+  } 
+  if(kevent.getKeyCode() == 83 && kevent.getAction() == 2){
+   saveImg(appc);
+ }
+  
+} //_CODE_:test_win:386781:
 
 synchronized public void genPlate_draw(PApplet appc, GWinData data) { //_CODE_:genPlate_win:259886:
   appc.background(203);
@@ -302,35 +324,9 @@ synchronized public void win_plate(PApplet appc, GWinData data) { //_CODE_:Plate
 
 synchronized public void savePlate_key(PApplet appc, GWinData data, KeyEvent kevent) { //_CODE_:Plate:785237:
      
-  if(kevent.getKeyCode() == 83 && kevent.getAction() == 2){
-        try{
-          String fileName = JOptionPane.showInputDialog("Save File :");
-          Path destinationPath = Paths.get(System.getProperty("user.home"));
-          File destinationFile = new File(destinationPath.toAbsolutePath()+"/"+directoryForKeepImg+"/"+fileName+".png");
-          if(fileName.equalsIgnoreCase("")){
-             JOptionPane.showMessageDialog(frame,"Plase Input FileName !!","Warning!",JOptionPane.WARNING_MESSAGE);
-             savePlate_key(appc,data,kevent);
-             return;
-           }
-           //file exists 
-          if(destinationFile.exists()){
-            int a = (int)JOptionPane.showConfirmDialog(frame,"FileName is already exists!! \n Do you wanna save ?","Save",JOptionPane.YES_NO_OPTION);
-            if(a == 0){
-                appc.save(destinationFile.getParent()+"/"+fileName+".png");
-                JOptionPane.showMessageDialog(frame,"Save to "+destinationFile.getAbsolutePath(),"Successing!",JOptionPane.PLAIN_MESSAGE);  
-                return;
-            }
-            else
-              return;
-          }
-          //default file dosen't exists
-          appc.save(destinationFile.getParent()+"/"+fileName+".png");   
-          JOptionPane.showMessageDialog(frame,"Save to "+destinationFile.getAbsolutePath(),"Successing!",JOptionPane.PLAIN_MESSAGE);  
-      }
-        catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(frame,e.getMessage());
-        }
-  }
+ if(kevent.getKeyCode() == 83 && kevent.getAction() == 2){
+   saveImg(appc);
+ }
  
  } //_CODE_:Plate:572166:
 
@@ -347,25 +343,16 @@ public void createGUI(){
   btn_test.setText("Test");
   btn_test.addEventHandler(this, "btn_test_click");
   genPlate_btn = new GButton(this, 95, 114, 110, 30);
-  genPlate_btn.setText("Generate Plate");
+  genPlate_btn.setText("Generate");
   genPlate_btn.addEventHandler(this, "btn_genPlate_click");
   about_btn = new GButton(this, 110, 161, 80, 30);
   about_btn.setText("About");
   about_btn.addEventHandler(this, "btn_about_click");
-  test_win = GWindow.getWindow(this, "Color blindness test", 0, 0, 600, 700, JAVA2D);
+  test_win = GWindow.getWindow(this, "Color blindness test", 0, 0, 600, 600, JAVA2D);
   test_win.noLoop();
   test_win.addDrawHandler(this, "win_test");
   test_win.addMouseHandler(this, "win_test_mouse");
   test_win.addKeyHandler(this, "win_test_key");
-  next_btn = new GButton(test_win, 471, 648, 80, 30);
-  next_btn.setText("Next");
-  next_btn.addEventHandler(this, "next_btn_click");
-  restart_btn_test = new GButton(test_win, 249, 649, 80, 30);
-  restart_btn_test.setText("Restart");
-  restart_btn_test.addEventHandler(this, "restart_btn_click");
-  pre_btn = new GButton(test_win, 43, 650, 80, 30);
-  pre_btn.setText("Previous");
-  pre_btn.addEventHandler(this, "pre_btn_click");
   genPlate_win = GWindow.getWindow(this, "Generate plate", 0, 0, 600, 400, JAVA2D);
   genPlate_win.noLoop();
   genPlate_win.addDrawHandler(this, "genPlate_draw");
@@ -379,11 +366,11 @@ public void createGUI(){
   Number.setOpaque(false);
   setNum = new GLabel(genPlate_win, 190, 20, 120, 20);
   setNum.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  setNum.setText("Color set number");
+  setNum.setText("Color set of number");
   setNum.setOpaque(false);
-  setcircle = new GLabel(genPlate_win, 404, 22, 140, 20);
+  setcircle = new GLabel(genPlate_win, 404, 22, 160, 20);
   setcircle.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  setcircle.setText("Color set circle packing");
+  setcircle.setText("Color set of circle packing");
   setcircle.setOpaque(false);
   generate_plate = new GButton(genPlate_win, 149, 277, 80, 30);
   generate_plate.setText("Generate");
@@ -745,9 +732,6 @@ GButton btn_test;
 GButton genPlate_btn; 
 GButton about_btn; 
 GWindow test_win;
-GButton next_btn; 
-GButton restart_btn_test; 
-GButton pre_btn; 
 GWindow genPlate_win;
 GButton Reset; 
 GLabel Number; 

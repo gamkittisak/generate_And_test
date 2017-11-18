@@ -4,7 +4,7 @@ can download my Full Software
 
 For MacOS
 
-https://drive.google.com/open?id=0B4VFbzOyRgqnZWJQQ0J4S1VKbVk
+https://drive.google.com/open?id=0B4VFbzOyRgqnclBScXFYOFZhQU0
 
 For Window x64
 
@@ -14,8 +14,16 @@ For Window x32
 
 https://drive.google.com/open?id=0B4VFbzOyRgqnN2dQbGN2UEM5OTA
 
-And Move folder "generate and color blindness test" into Documents  
+For Linux 64
 
+https://drive.google.com/open?id=0B4VFbzOyRgqnSkxUUTQ5VkVENWs
+
+For Linux 32
+
+https://drive.google.com/open?id=0B4VFbzOyRgqnODhZVUdfR1NSc1E
+
+
+#### Don't forget Move folder "generate and color blindness test" into Documents  
 
 how to run this source code? 
 
@@ -24,6 +32,10 @@ how to run this source code?
 3. search with Filter "g4p"  and instal
 4. clone/download this project
 5. unzip and change folder name "generate_and_color_blindness_test-master" into "generate_and_color_blindness_test"
-6. Move folder "generate and color blindness test" into Documents  
 
 
+
+
+
+
+Todo: save file  Win_test
