@@ -338,12 +338,12 @@ public void createGUI(){
   G4P.messagesEnabled(false);
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setCursor(ARROW);
-  surface.setTitle("Main Sketch");
+  surface.setTitle("Generator and Color blindness test");
   btn_test = new GButton(this, 110, 62, 80, 30);
   btn_test.setText("Test");
   btn_test.addEventHandler(this, "btn_test_click");
   genPlate_btn = new GButton(this, 95, 114, 110, 30);
-  genPlate_btn.setText("Generate");
+  genPlate_btn.setText("Generator");
   genPlate_btn.addEventHandler(this, "btn_genPlate_click");
   about_btn = new GButton(this, 110, 161, 80, 30);
   about_btn.setText("About");
